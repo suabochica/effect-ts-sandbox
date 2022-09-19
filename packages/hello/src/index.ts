@@ -14,7 +14,8 @@ export function helloWorldV3(name: string) {
   return log(`hello world: ${name}`)
 }
 
-const program = helloWorldV3("Jim")
+// const program = helloWorldV3("Jim")
+const program = pipe(helloWorldV3("Jim"), T.chain(() => helloWorldV3("Pam")))
 
 pipe(
   program,

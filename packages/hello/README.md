@@ -95,3 +95,54 @@ At this point the `helloWorld` function is testable an explicit, but it is kind 
 
 Ever worse composing it with other functions becomes hard. We would like to express both the dependencies an the failure
 type in a single return type that compose better.
+
+So to reduce the bad-looking and enable the composition of the `helloWorld` function we should use a type that given a
+context returns an error scenario, and otherwise returns a successful scenario. This is known a an effect, Let's check
+the next code snippet:
+
+```ts
+// 1. Import the effect type
+import * as T from "@effect-ts/core/Effect"
+import {pipe} from "@effect-ts/core/Function"
+import {tag} from "@effect-ts/core/Has"
+
+interface ConsoleService {
+  // 2. Declare the console service effect
+  // R:  Does not require anything to run (i.e., unknown input)
+  // E:  It never fails
+  // A:  A printed message
+  log: (message: string) => T.Effect<undefined, never, void>
+}
+
+// 3. Create a service tag to identify this specific service in an environment
+const ConsoleService = tag<ConsoleService>()
+
+// 4. Utility to access the service from the environment
+const log = (message: string) => T.accessServiceM(ConsoleService)((_) => _.log(message))
+
+export function helloWorldV3(name: string) {
+  return log(`hello world: ${name}`)
+}
+
+const program = helloWorldV3("Jim")
+
+// 5. Materialize the effect (runPromise)
+pipe(
+  program,
+  T.provideService(ConsoleService)({
+    log: (message) =>
+      T.effectTotal(() => {
+        console.log(message)
+      })
+  }),
+  T.runPromise
+)
+```
+
+Cool! as you can see we execute five steps to enable composition of the `helloWorld` function via the effect type:
+
+1. import the `Effect` type form `Effect-TS`
+2. declare the console service effect
+3. create a service tag to identify the service in an environment with multiple services
+4. create an utility to access the service from the environment
+5. materialize the effect
