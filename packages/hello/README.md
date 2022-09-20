@@ -68,14 +68,14 @@ interface ConsoleService {
 }
 
 // 1. make helloWorld a function
-export function helloWorldV3(name: string) {
+export function helloWorld(name: string) {
   // 3.make the dependency on console explicit
   return ({Console}: ConsoleService) => {
     Console.log(`hello world: ${name}`)
   }
 }
 
-const call = helloWorldV3("Jim")
+const call = helloWorld("Jim")
 
 const r = call({
   Console: {
@@ -120,11 +120,11 @@ const ConsoleService = tag<ConsoleService>()
 // 4. Utility to access the service from the environment
 const log = (message: string) => T.accessServiceM(ConsoleService)((_) => _.log(message))
 
-export function helloWorldV3(name: string) {
+export function helloWorld(name: string) {
   return log(`hello world: ${name}`)
 }
 
-const program = helloWorldV3("Jim")
+const program = helloWorld("Jim")
 
 // 5. Materialize the effect (runPromise)
 pipe(
@@ -146,3 +146,72 @@ Cool! as you can see we execute five steps to enable composition of the `helloWo
 3. create a service tag to identify the service in an environment with multiple services
 4. create an utility to access the service from the environment
 5. materialize the effect
+
+At this point, when we run the `yarn run dev` command we get in the console
+
+```
+Hello World: Jim
+```
+
+Now let's check how we can compose the `helloWorld` functions. Initially we will print the hello world with two
+different names.
+
+```ts
+const program = pipe(
+  helloWorldV3("Jim"),
+  T.chain(() => helloWorldV3("Pam"))
+)
+```
+
+The key here is the use of the `T.chain` method. Alternatively, we can take advantage of TypeScript's generator
+functions to get a
+syntactic sugar for the `pipe` and `T.chain` syntax:
+
+```ts
+const program = T.gen(function* (_) {
+  yield* _(helloWorld("Pam"))
+  yield* _(helloWorld("Jim"))
+  yield* _(helloWorld("Dwight"))
+})
+```
+
+With both versions, after run `yarn run dev` we get:
+
+```
+hello world: Pam
+hello world: Jim
+hello world: Dwight
+```
+
+Moreover, we can repeat the execution of the effect twice using the `.repeatN` function:
+
+```ts
+pipe(
+  program,
+  T.repeatN(1),
+  T.provideService(ConsoleService)({
+    log: (message) =>
+      T.effectTotal(() => {
+        console.log(message)
+      })
+  }),
+  T.runPromise
+)
+```
+
+When the `yarn run dev` command is ran, we get:
+
+```
+hello world: Pam
+hello world: Jim
+hello world: Dwight
+hello world: Pam
+hello world: Jim
+hello world: Dwight
+```
+
+This is how we use the Effect type in basic terms. Now, everything is testable because your services are shifted and
+they are separated.
+
+To complement this example, let's create a program that generates a random number between 0 and 1, and depending of the
+number generated, if it is more that 0,5 we print out what we have got, otherwise we will refuse with a type error:

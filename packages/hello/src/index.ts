@@ -15,7 +15,21 @@ export function helloWorldV3(name: string) {
 }
 
 // const program = helloWorldV3("Jim")
-const program = pipe(helloWorldV3("Jim"), T.chain(() => helloWorldV3("Pam")))
+
+/** pipe + chain
+ const program = pipe(
+ helloWorldV3("Jim"),
+ T.chain(() => helloWorldV3("Pam")),
+ T.chain(() => helloWorldV3("Dwight")),
+ )
+ */
+
+// gen + yield
+const program = T.gen(function* (_) {
+  yield* _(helloWorldV3("Pam"))
+  yield* _(helloWorldV3("Jim"))
+  yield* _(helloWorldV3("Dwight"))
+})
 
 pipe(
   program,
