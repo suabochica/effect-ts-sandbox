@@ -213,5 +213,66 @@ hello world: Dwight
 This is how we use the Effect type in basic terms. Now, everything is testable because your services are shifted and
 they are separated.
 
-To complement this example, let's create a program that generates a random number between 0 and 1, and depending of the
+To complement this example, let's create a program that generates a random number between 0 and 1, and depending on the
 number generated, if it is more that 0,5 we print out what we have got, otherwise we will refuse with a type error:
+
+```ts
+interface RandomService {
+  rand: T.Effect<unknown, never, number>
+}
+
+const RandomService = tag<RandomService>()
+
+const rand = T.accessServiceM(RandomService)((_) => _.rand)
+
+class BadRandomValue {
+  readonly _tag = "BadRandomValue"
+
+  constructor(readonly n: number) {
+  }
+}
+
+const program = T.gen(function* (_) {
+  const value = yield* _(rand)
+
+  if (value > 0.5) {
+    yield* _(T.fail(new BadRandomValue(value)))
+  } else {
+    yield* _(log(`got: ${value}`))
+  }
+
+  // ...
+})
+```
+
+As you can see the structure is pretty similar to the steps executed for the `ConsoleService`. The difference is
+the `BadRandomValue` class to handle the fail. If we check the pipe function, we will get an error with the `runPromise`
+because now the program is expecting for a `RandomService`.
+
+```ts
+import * as S from "@effect-ts/core/Effect/Schedule";
+
+// ...
+
+pipe(
+  program,
+  T.retry(S.recurs(10)),
+  T.provideService(ConsoleService)({
+    log: (message) =>
+      T.effectTotal(() => {
+        console.log(message)
+      })
+  }),
+  T.provideService(RandomService)({
+    rand: T.effectTotal(() => {
+      return Math.random()
+    })
+  }),
+  runMain
+)
+```
+
+A good practice is split your code two files for this specific case; `main.ts` whose content is all the service
+definitions with their respective accessors and the program itself, and, the `index.ts` importing all the contents
+from `main.ts` and the `pipe` function to materialize the effect. 
+
