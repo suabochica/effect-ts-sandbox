@@ -20,7 +20,7 @@ export function helloWorld(name: string) {
   return log(`hello world: ${name}`)
 }
 
-class BadRandomValue {
+export class BadRandomValue {
   readonly _tag = "BadRandomValue"
 
   constructor(readonly n: number) {
@@ -36,8 +36,4 @@ export const program = T.gen(function* (_) {
   } else {
     yield* _(log(`got: ${value}`))
   }
-
-  yield* _(helloWorld("Pam"))
-  yield* _(helloWorld("Jim"))
-  yield* _(helloWorld("Dwight"))
 })
