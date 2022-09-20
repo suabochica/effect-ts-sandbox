@@ -274,5 +274,95 @@ pipe(
 
 A good practice is split your code two files for this specific case; `main.ts` whose content is all the service
 definitions with their respective accessors and the program itself, and, the `index.ts` importing all the contents
-from `main.ts` and the `pipe` function to materialize the effect. 
+from `main.ts` and the `pipe` function to materialize the effect.
+
+Now it is time to test our code. An initial approach is add a test on the success scenario of the random service and
+print the received value with the console service:
+
+```ts
+import * as T from "@effect-ts/core/Effect"
+import * as Exit from "@effect-ts/core/Effect/Exit"
+import {pipe} from "@effect-ts/core/Function"
+
+import * as App from "@app/main";
+
+
+describe("App", () => {
+  it("should succeed for numbers less than 0.5", async () => {
+    const messages: string[] = []
+
+    const result = await pipe(
+      App.program,
+      T.provideService(App.ConsoleService)({
+        log: (message) =>
+          T.effectTotal(() => {
+            messages.push(message)
+          })
+      }),
+      T.provideService(App.RandomService)({
+        rand: T.effectTotal(() => {
+          return 0.49
+        })
+      }),
+      T.runPromiseExit
+    )
+
+    expect(result).toEqual(Exit.unit)
+    expect(messages).toEqual(["got: 0.49"])
+  })
+})
+```
+
+As you can see, we import the `App` an get the program and the services from them. It is necessary use the `Exit` type
+to
+exit from the promise. Now, whe we run the `yarn test` command we get the next report from jest:
+
+```
+App
+    ✓ should succeed for numbers less than 0.5 (7 ms)
+
+Test Suites: 1 passed, 1 total
+Tests:       1 passed, 1 total
+```
+
+However, providing services one by one is not a good idea. Instead, we can use layers is a specific data type to provide
+environment and to construct environment allowing us have a declarative way to define the services. Following our
+example the code will update to:
+
+```ts
+import * as L from "@effect-ts/core/Effect/Layer"
+
+describe("App", () => {
+  it("should succeed for numbers less than 0.5", async () => {
+    const messages: string[] = []
+    const TestConsole = L.fromEffect(App.ConsoleService)(T.succeed({
+        log: (message) =>
+          T.effectTotal(() => {
+            messages.push(message)
+          })
+      })
+    )
+    const TestRandom = L.fromEffect(App.RandomService)(T.succeed({
+        rand: T.effectTotal(() => {
+          return 0.49
+        })
+      })
+    )
+
+    const result = await pipe(
+      App.program,
+      T.provideSomeLayer(TestConsole["+++"](TestRandom)),
+      T.runPromiseExit
+    )
+
+    expect(result).toEqual(Exit.unit)
+    expect(messages).toEqual(["got: 0.49"])
+  })
+})
+```
+
+Much better! now the `TestConsole` and `TestRandom` variables have the effect implementations and in with
+the `T.provideSomeLayer` we specify the composition between them using the `+++` operator.
+
+This is a key point because you will have several ways to organize your code keeping everything testable and functional.
 
