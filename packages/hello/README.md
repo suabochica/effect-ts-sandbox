@@ -365,4 +365,3 @@ Much better! now the `TestConsole` and `TestRandom` variables have the effect im
 the `T.provideSomeLayer` we specify the composition between them using the `+++` operator.
 
 This is a key point because you will have several ways to organize your code keeping everything testable and functional.
-
