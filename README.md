@@ -24,3 +24,5 @@ application development.
 
 ## References
 
+- [Effect Website](https://www.effect.website)
+- [Effect Docs](https://www.effect.website/docs/why-effect)
