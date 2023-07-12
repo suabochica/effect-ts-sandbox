@@ -4,7 +4,7 @@ import * as O from "@effect/data/Option";
 
 /**
  * Effect
- * =====
+ * ======
  *
  * An effect represents a computation.
  *
@@ -29,3 +29,41 @@ import * as O from "@effect/data/Option";
  *
  * There are variants of these operators for returning Either anc Cause instead of raw values.
  */
+
+const succeedWith42 = T.succeed(42)
+const failWith42 = T.fail(42)
+
+const fromMaybe42 = T.getOrFail(O.fromNullable(42))
+const fromSyncFunction = T.sync(() => 4)
+const fromCallback = T.async<never, never, number>((resume) => resume(T.succeed(42)))
+const fromComputationThatMayFail = T.tryCatch(
+    () => 42,
+    error => error as never
+)
+const fromPromise = T.tryCatchPromise(
+    () => Promise.resolve(42),
+    error => error as never
+)
+
+/**
+ * Exercises
+ * =========
+ *
+ * 1. Create a program that prints "hello, world!" using `console.log`
+ * 2. Run the program
+ * 3. Create another program that print it three times
+ * 4. Try to create a version of your program using `zip` or `flatMap`
+ */
+
+const print = T.sync(() => {
+    console.log("hello, world!")
+})
+
+// const printThrice = pipe(
+//     print,
+//     print,
+//     print
+// )
+
+T.runSync(print)
+// T.runSync(printThrice)
