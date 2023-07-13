@@ -17,7 +17,6 @@ There are some common traits of testable code:
 - Low-Coupling
 - Separation of pure and impure
 - Simplicity
--
 
 ## What do we mean by Testable Code?
 
