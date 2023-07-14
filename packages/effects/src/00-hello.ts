@@ -9,6 +9,7 @@ import * as O from "@effect/data/Option";
  * An effect represents a computation.
  *
  * Effect <R, E, A> is read as a computation that:
+ * The difference with monads is that we have and error chanel.
  *
  * - needs an environment of type R,
  * - may fail with a value of type E,
@@ -27,7 +28,7 @@ import * as O from "@effect/data/Option";
  * - `runSync`: tries to run the effect synchronously. If it cannot, it will throw an error.
  * - `runFork`: returns a fiber that represents the execution.
  *
- * There are variants of these operators for returning Either anc Cause instead of raw values.
+ * There are variants of these operators for returning Either and Cause instead of raw values.
  */
 
 const succeedWith42 = T.succeed(42)
@@ -59,11 +60,15 @@ const print = T.sync(() => {
     console.log("hello, world!")
 })
 
-// const printThrice = pipe(
-//     print,
-//     print,
-//     print
-// )
+const printOnce = pipe(
+    print,
+    T.runPromise
+)
 
-T.runSync(print)
-// T.runSync(printThrice)
+const printThrice = pipe(
+    print,
+    T.repeatN(2),
+    T.runPromise
+)
+
+printThrice

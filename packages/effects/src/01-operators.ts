@@ -7,11 +7,15 @@ import * as T from "@effect/io/Effect"
  *
  * Effect are monadic structures
  * As such they have both, `map` and `flatMap`
- *
+ * `map` allows to work w/ the internal value w/o affect the external type.
+ * `flatMap` allows to work w/ the internal value and break the structure.
+ * The next feature is enable the sequence.
+ * The result of A is lost. If A fails, we cannot generate B.
+ * `zip` The effect that are in the sequence are not dependent.
  */
 
 const succeed41 = T.succeed(41);
-const printLn = (message: string) => 
+const printLn = (message: string) =>
     T.sync(
         () => console.log(message)
     )
