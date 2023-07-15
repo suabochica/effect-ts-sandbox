@@ -22,8 +22,8 @@ const printLn = (message: string) =>
 
 const program1 = pipe(
     succeed41,
-    // T.map((n) => n.toString),
-    // printLn
+    T.map((n) => n.toString),
+    T.flatMap(printLn)
 )
 
 T.runPromise(program1);
@@ -38,17 +38,32 @@ T.runPromise(program1);
  *
  * 1. Fit the previous exercise to use the `tap` operator, print the value if it is even,
  * otherwise, fail with OddError
+ * 2. `zip` are another sequence operator; Like `flatMap` it sequence two effects,
+ * but, one effect is not dependent of the result value of the other effect. Create
+ * a program that sum the result value of two effect that generate random numbers.
  */
+
+const isEven = (n: number) => n % 2 === 0
+const randomInt = T.sync(() => Math.floor(Math.random() * 100))
+
 
 class OddError {
     readonly _tag = "OddError";
 
-    constructor(public which: number){}
+    constructor(public which: number) { }
 }
 
 const program2 = pipe(
-    T.sync(() => Math.floor(Math.random() * 100)),
-    // -- Tip: Add core here--
+    randomInt,
+    T.tap((n: number) => n % 2 === 0 ? T.unit() : T.fail(new OddError(n))),
+    T.map(x => `${x}`),
+    T.flatMap(printLn)
 )
 
 T.runPromise(program2);
+
+const exercise2 = pipe(
+    randomInt,
+    T.zip(randomInt),
+    T.map(([a, b]) => a + b)
+)
