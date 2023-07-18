@@ -2,7 +2,7 @@ import { pipe } from "@effect/data/Function"
 import * as T from "@effect/io/Effect"
 
 /**
- * Effect
+ * Operators
  * =====
  *
  * Effect are monadic structures
@@ -14,7 +14,7 @@ import * as T from "@effect/io/Effect"
  * `zip` The effect that are in the sequence are not dependent.
  */
 
-const succeed41 = T.succeed(41);
+const succeed41 = T.succeed(41 as const);
 const printLn = (message: string) =>
     T.sync(
         () => console.log(message)
@@ -66,4 +66,29 @@ const exercise2 = pipe(
     randomInt,
     T.zip(randomInt),
     T.map(([a, b]) => a + b)
+)
+
+/**
+ * Do-notation
+ * -----------
+ * Similar to haskell do notation, Effect Provides a mechanism that emulates it.
+ * It is based around one constructor and 6 operators;
+ *
+ * `Do`, same as succeed({})
+ * `bind`: sets the result of an effect to a key.
+ * `bindTo`: same as map(x => { [key]: x })
+ * `bindDiscard`: same as `bind` but receive the plain value instead of a fn.
+ * `let`: works like `map` but stores the result in the provided key.
+ * `letDiscard`: same as `let` but receive the plain value instead of a fn.
+ */
+
+const do42 = pipe(
+    T.Do(),
+    T.bindDiscard("w", T.succeed(2)),
+    T.bind("x", ({ w }) => T.succeed(w + 18)),
+    T.let("y", ({ w }) => w + 8),
+    T.letDiscard("z", 10),
+    T.map(({ w, x, y, z}) => w + x + y + z),
+    T.map(x => `${x}`),
+    T.flatMap(printLn)
 )
