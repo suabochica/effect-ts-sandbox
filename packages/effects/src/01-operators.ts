@@ -22,11 +22,10 @@ const printLn = (message: string) =>
 
 const program1 = pipe(
     succeed41,
-    T.map((n) => n.toString),
-    T.flatMap(printLn)
+    T.map((n) => n.toString)
 )
 
-T.runPromise(program1);
+T.runSync(program1)
 
 /**
  * Exercises
@@ -74,12 +73,12 @@ const exercise2 = pipe(
  * Similar to haskell do notation, Effect Provides a mechanism that emulates it.
  * It is based around one constructor and 6 operators;
  *
- * `Do`, same as succeed({})
- * `bind`: sets the result of an effect to a key.
- * `bindTo`: same as map(x => { [key]: x })
- * `bindDiscard`: same as `bind` but receive the plain value instead of a fn.
- * `let`: works like `map` but stores the result in the provided key.
- * `letDiscard`: same as `let` but receive the plain value instead of a fn.
+ * - `Do`, same as succeed({})
+ * - `bind`: sets the result of an effect to a key.
+ * - `bindTo`: same as map(x => { [key]: x })
+ * - `bindDiscard`: same as `bind` but receive the plain value instead of a fn.
+ * - `let`: works like `map` but stores the result in the provided key.
+ * - `letDiscard`: same as `let` but receive the plain value instead of a fn.
  */
 
 const do42 = pipe(
