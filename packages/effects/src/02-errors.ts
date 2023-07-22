@@ -29,7 +29,7 @@ class EvenError {
     readonly _tag = "EvenError"
 }
 
-const program = pipe (
+const program = pipe(
     T.fail(new ConnectionError()),
     T.zipRight(T.fail(new InvariantError())),
     T.zipRight(T.fail(new OddError())),
@@ -37,3 +37,31 @@ const program = pipe (
 )
 
 T.runPromise(program);
+
+/**
+ * Exercises
+ * --------
+ */
+
+// 1. Use `catchTag` to  handle ConnectionError
+
+const network = pipe(
+    program,
+    T.catchTag("ConnectionError", (error) => T.succeed(42 as const))
+)
+
+// 2. Use `catchTags` to  handle OddError and EvenError
+
+const num = pipe(
+    network,
+    T.catchTags({
+        OddError: (error) => T.succeed(43 as const),
+        EvenError: (error) => T.succeed(44 as const),
+    })
+)
+
+// 3. Use `catchAll` to handle remaining errors
+const remain = pipe(
+    num,
+    T.catchAll((error) => T.succeed(55 as const))
+)
