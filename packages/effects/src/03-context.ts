@@ -82,6 +82,7 @@ const ask = (message: string) => T.tryCathPromise(
     () => new NonInteractive()
 )
 
+
 type User = {
     id: string,
     userName: string,
@@ -98,6 +99,24 @@ interface UserService {
 
 const UserService = Context.tag<UserService>();
 
+const UserServiceLive = UserService.of({
+    login(username, password) {
+        return pipe(
+            T.Do(),
+            T.zipLeft(wait(1000)),
+            T.bindDiscard("username", equals("sua")(username)),
+            T.bindDiscard("password", equals("123")(username)),
+            T.map(() => ({
+                id: "idk",
+                userName: username,
+                firstName: "sua",
+                lastName: "bochica"
+
+            } as User)),
+        )
+    }
+})
+
 const program2 = pipe(
     T.Do(),
     T.bind("username", () => ask("username: ")),
@@ -107,6 +126,7 @@ const program2 = pipe(
     T.tap((user) => printLn(`Hellos ${user.firstName}!`))
 )
 
+
 /**
  * Exercise
  * --------
@@ -114,8 +134,29 @@ const program2 = pipe(
  * 2. Using program2, create a new program to handle error.
  */
 
+const program3 = pipe(
+    program2,
+    T.provideService(UserService, UserServiceLive),
+    T.catchAll(error => printLn(error._tag))
+)
 
 /**
  * Rock, paper scissors (RPS)
  * -------------------------
  */
+
+/**
+ * Helpers
+ * -------------------------
+ */
+const wait = (millis: number): T.Effect<never, never, void> => T.async((resume) => {
+    setTimeout(() => resume(T.unit()), millis);
+});
+
+const equals = (a: string) => (b: string): T.Effect<never, AuthError, string> => {
+    if (a === b) {
+        return T.succeed(a);
+    } else {
+        return T.fail(new AuthError());
+    }
+}
