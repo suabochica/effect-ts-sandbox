@@ -61,8 +61,13 @@ T.runSync(program1)
 
 const printLn = (msg: string) => T.sync(() => console.log(msg));
 
+
 class NonInteractive {
     readonly _tag = "NonInteractive";
+}
+
+class InvalidOption {
+    readonly _tag = "InvalidOption";
 }
 
 class AuthError {
@@ -140,10 +145,46 @@ const program3 = pipe(
     T.catchAll(error => printLn(error._tag))
 )
 
+T.runPromise(program3)
+
 /**
  * Rock, paper scissors (RPS)
  * -------------------------
  */
+
+type RSPOption = "rock" | "paper" | "scissors";
+
+interface IOService {
+    print(message: string) => T.Effect<never, never, void>,
+    ask(message: string) => T.Effect<never, NonInteractive, string>,
+}
+
+const IOService = Context.tag<IOService>()
+
+const IOServiceLive = IOService.of({
+    ask,
+    printLn, printLn
+})
+
+interface GameService {
+    next: () => T.Effect<never, never, RSPOption>
+}
+
+const GameService = Context.tag<GameService>()
+
+const GameServiceLive = GameService.of({
+    next() {
+        const action = Math.floor(Math.random() * 3) as 0 | 1 | 2;
+
+        return T.succeed((["rock", "paper", "scissors"] as const)[action])
+    }
+})
+
+const services = pipe(
+    Context.empty(),
+    Context.add(GameService, GameServiceLive),
+    Context.add(IOService, IOServiceLive),
+);
 
 /**
  * Helpers
