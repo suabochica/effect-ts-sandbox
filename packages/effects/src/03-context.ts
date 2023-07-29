@@ -145,14 +145,14 @@ const program3 = pipe(
     T.catchAll(error => printLn(error._tag))
 )
 
-T.runPromise(program3)
+// T.runPromise(program3)
 
 /**
  * Rock, paper scissors (RPS)
  * -------------------------
  */
 
-type RSPOption = "rock" | "paper" | "scissors";
+type RPSOption = "rock" | "paper" | "scissors";
 
 interface IOService {
     print(message: string) => T.Effect<never, never, void>,
@@ -201,3 +201,44 @@ const equals = (a: string) => (b: string): T.Effect<never, AuthError, string> =>
         return T.fail(new AuthError());
     }
 }
+
+const RPS = pipe(
+    T.Do(),
+    T.bind("io", () => IOService),
+    T.bind("raw", ({ io }) => io.ask("Jan ken pon!L ")),
+    T.bind("player", ({ raw, io }) => ["rock", "paper", "scissors"].includes(raw as any)
+        ? T.succeed(raw as RPSOption)
+        : pipe(
+            io.print("Invalid option"),
+            T.zipRight(T.fail(new InvalidOption))
+        )
+    ),
+    T.retryWhile((error) => error._tag === "InvalidOption"),
+    T.bind("game", () => GameService),
+    T.bind("ai", ({ game }) => game.next()),
+    T.tap(({ io, ai }) => io.print(`CPU picked ${ai}`)),
+    T.map(({ player, ai }) => {
+        const p = player;
+        const result = {
+            rock: {
+                rock: "tie",
+                paper: "🤖 CPU wins!",
+                scissors: "🧑 Player wins!",
+            },
+            paper: {
+                rock: "🧑 Player wins!",
+                paper: "tie",
+                scissors: "🤖 CPU wins!",
+            },
+            scissors: {
+                rock: "🤖 CPU wins!",
+                paper: "🧑 Player wins!",
+                scissors: "tie",
+            },
+        } as const
+
+        return result[p][ai]
+    })
+)
+
+T.runPromise(RPS)
