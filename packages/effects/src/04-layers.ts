@@ -29,8 +29,14 @@ import * as L from "@effect/io/Layer"
 
 type RPSOption = "rock" | "paper" | "scissors";
 
+type Winner = "Player" | "CPU"
+
 class NonInteractive {
     readonly _tag = "NonInteractive";
+}
+
+class InvalidOption {
+    readonly _tag = "InvalidOption";
 }
 
 interface ConsoleService {
@@ -49,8 +55,8 @@ const ConsoleServiceLive = L.succeed(
 )
 
 interface IOService {
-    print(message: string) => T.effect<never, never, void>,
-    ask(message: string) => T.effect<never, NonInteractive, void>,
+    print: (message: string) => T.Effect<never, never, void>,
+    ask: (message: string) => T.Effect<never, NonInteractive, void>,
 }
 
 const IOService = Context.Tag<IOService>();
@@ -79,3 +85,42 @@ const IOServiceLive = L.effect(
         })
     )
 )
+
+interface GameService {
+    next: () => T.Effect<never, never, RPSOption>;
+}
+
+const GameService = Context.tag<GameService>();
+
+const GameServiceLive = L.succeed(
+    GameService,
+    GameService.of({
+        next() {
+            const action = Math.floor(Math.random() * 3) as 0 | 1 | 2;
+
+            return T.succeed((["rock", "paper", "scissors"] as const)[action]);
+        }
+    })
+)
+
+interface RPS {
+    game: T.Effect<never, InvalidOption | NonInteractive, Winner>;
+}
+
+const RPS = Context.Tag<RPS>();
+
+const RPSLive = pipe(
+    RPS,
+    pipe(
+        T.all(GameService, IOService),
+        // TODO: Complete implementation
+    )
+)
+
+/**
+ * Helpers
+ * --------------------
+ */
+
+const isRPS = (option: string): option is RPSOption => ["rock", "paper", "scissors"].includes(option);
+
