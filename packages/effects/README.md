@@ -1,5 +1,5 @@
-Let's Learn Effects!
-====================
+Let's Learn Effects
+===================
 
 Here you will find basic exercises to get started using effects:
 

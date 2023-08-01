@@ -74,7 +74,7 @@ class AuthError {
     readonly _tag = "AuthError";
 }
 
-const ask = (message: string) => T.tryCathPromise(
+const ask = (message: string) => T.tryCatchPromise(
     async () => {
         const answer = await prompt(message)
 
@@ -99,10 +99,10 @@ interface UserService {
     login: (
         username: string,
         password: string,
-    ) => T.Effect(never, AuthError, User)
+    ) => T.Effect<never, AuthError, User>
 }
 
-const UserService = Context.tag<UserService>();
+const UserService = Context.Tag<UserService>();
 
 const UserServiceLive = UserService.of({
     login(username, password) {
@@ -155,22 +155,22 @@ const program3 = pipe(
 type RPSOption = "rock" | "paper" | "scissors";
 
 interface IOService {
-    print(message: string) => T.Effect<never, never, void>,
-    ask(message: string) => T.Effect<never, NonInteractive, string>,
+    print: (message: string) => T.Effect<never, never, void>,
+    ask: (message: string) => T.Effect<never, NonInteractive, string>,
 }
 
-const IOService = Context.tag<IOService>()
+const IOService = Context.Tag<IOService>()
 
 const IOServiceLive = IOService.of({
     ask,
-    printLn, printLn
+    print: printLn
 })
 
 interface GameService {
-    next: () => T.Effect<never, never, RSPOption>
+    next: () => T.Effect<never, never, RPSOption>
 }
 
-const GameService = Context.tag<GameService>()
+const GameService = Context.Tag<GameService>()
 
 const GameServiceLive = GameService.of({
     next() {

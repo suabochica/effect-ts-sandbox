@@ -65,10 +65,8 @@ const printOnce = pipe(
     T.runPromise
 )
 
-const printThrice = pipe(
-    print,
-    T.repeatN(2),
-    T.runPromise
-)
-
-printThrice
+// const printThrice = pipe(
+//     print,
+//     T.repeatN(2),
+//     T.runPromise
+// )
