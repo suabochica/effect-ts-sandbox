@@ -29,7 +29,7 @@ import * as L from "@effect/io/Layer"
 
 type RPSOption = "rock" | "paper" | "scissors";
 
-type Winner = "Player" | "CPU"
+type Winner = "🧑 Player wins!" | "🤖 CPU wins!"
 
 class NonInteractive {
     readonly _tag = "NonInteractive";
@@ -113,7 +113,49 @@ const RPSLive = pipe(
     RPS,
     pipe(
         T.all(GameService, IOService),
-        // TODO: Complete implementation
+        T.map(([GameService, IOService]) => {
+            type Result = Winner | "Tie"
+
+            const singleRun = pipe(
+                IOService.ask("Rock, paper, scissors!: "),
+                T.flatMap((player) => isRPS(player)
+                    ? T.succeed(player)
+                    : pipe(
+                        IOService.print("Invalid Option"),
+                        T.zipRight(T.fail(new InvalidOption))
+                    )
+                ),
+                T.bindTo("player"),
+                T.bind("cpu", () => GameService.next()),
+            )
+
+            const decide = ({ cpu, player }: Record<"cpu" | "player", RPSOption>): Result => {
+                const decisionTree = {
+                    rock: {
+                        rock: "Tie",
+                        paper: "🤖 CPU wins!",
+                        scissors: "🧑 Player wins!",
+                    },
+                    paper: {
+                        rock: "🧑 Player wins!",
+                        paper: "Tie",
+                        scissors: "🤖 CPU wins!",
+                    },
+                    scissors: {
+                        rock: "🤖 CPU wins!",
+                        paper: "🧑 Player wins!",
+                        scissors: "Tie",
+                    },
+                } as const
+
+                return decisionTree[player][cpu];
+            }
+
+            const game = pipe(
+                // TODO: Add implementation
+            )
+        })
+
     )
 )
 
