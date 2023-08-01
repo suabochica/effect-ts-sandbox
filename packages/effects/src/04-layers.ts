@@ -152,11 +152,27 @@ const RPSLive = pipe(
             }
 
             const game = pipe(
-                // TODO: Add implementation
+                singleRun,
+                T.retryWhile(error => error._tag === "InvalidOption"),
+                T.tap(({ cpu }) => IOService.print(`CPU picked ${cpu}`)),
+                T.map(decide),
+                T.tap(result => result === "Tie"
+                    ? IOService.print("Tie! run again")
+                    : T.unit()
+                ),
+                T.repeatWhileEquals("Tie"),
+                T.map(x => x as Winner)
             )
-        })
 
-    )
+            return RPS.of({ game })
+        }),
+    ),
+)
+
+const program = pipe(
+    RPS,
+    T.flatMap(rps => rps.game),
+    T.flatMap(winner => T.sync(() => console.log(`${winner} won`)))
 )
 
 /**
@@ -166,3 +182,21 @@ const RPSLive = pipe(
 
 const isRPS = (option: string): option is RPSOption => ["rock", "paper", "scissors"].includes(option);
 
+
+/**
+ * Main
+ * --------------------
+ */
+
+const MainLayer = pipe(
+    ConsoleServiceLive,
+    L.provide(IOServiceLive),
+    L.merge(GameServiceLive),
+    L.provide(RPSLive)
+)
+
+pipe(
+    program,
+    T.provideLayer(MainLayer),
+    T.runPromise
+)
