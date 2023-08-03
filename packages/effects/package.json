@@ -17,7 +17,7 @@
     "once:layers": "ts-node ./src/04-layers.ts"
   },
   "devDependencies": {
-    "@types/node": "^20.3.1",
+    "@types/node": "^20.4.6",
     "ts-node": "^10.9.1",
     "typescript": "^5.1.3"
   },

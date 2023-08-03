@@ -61,7 +61,21 @@ According the contents you set in this file, the tag error could change.
 Use the next script to run the `/context` folder exercises:
 
 ```bash
-yarn start:context
+yarn once:context
+```
+
+The expected output of this command is a rock, paper, scissors game; according your selections the logs will be different, below an example of a hard match
+
+```sh
+yarn run v1.22.19
+$ ts-node ./src/03-context.ts
+Jan ken pon! paper
+CPU picked paper
+tie
+Jan ken pon! paper
+CPU picked rock
+🧑 Player wins!
+Done in 7.33s.
 ```
 
 Use the next script to run the `/layers` folder exercises:

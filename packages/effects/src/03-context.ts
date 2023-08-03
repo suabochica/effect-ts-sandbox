@@ -205,7 +205,7 @@ const equals = (a: string) => (b: string): T.Effect<never, AuthError, string> =>
 const RPS = pipe(
     T.Do(),
     T.bind("io", () => IOService),
-    T.bind("raw", ({ io }) => io.ask("Jan ken pon!L ")),
+    T.bind("raw", ({ io }) => io.ask("Jan ken pon! ")),
     T.bind("player", ({ raw, io }) => ["rock", "paper", "scissors"].includes(raw as any)
         ? T.succeed(raw as RPSOption)
         : pipe(
@@ -238,7 +238,10 @@ const RPS = pipe(
         } as const
 
         return result[p][ai]
-    })
+    }),
+    T.tap(printLn),
+    T.repeatWhile(x => x === "tie"),
+    T.provideContext(services)
 )
 
 T.runPromise(RPS)
