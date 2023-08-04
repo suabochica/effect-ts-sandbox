@@ -1,5 +1,5 @@
 Requisites
-----------
+==========
 
 - yarn: package manager
 - node: version 18.0.0
@@ -22,7 +22,7 @@ Next, install the `yarn` package manager globally:
 npm i -g yarn
 ```
 
-To check that yarn was successfully instaled verify the version:
+To check that yarn was successfully installed verify the version:
 
 ```sh
 yarn --version
@@ -33,3 +33,11 @@ The output should be something like:
 ```sh
 1.22.19
 ```
+
+Install the project dependencies via:
+
+```sh
+yarn install
+```
+
+Now you are able to run the scripts defined in the project.

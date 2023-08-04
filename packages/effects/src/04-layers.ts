@@ -56,7 +56,7 @@ const ConsoleServiceLive = L.succeed(
 
 interface IOService {
     print: (message: string) => T.Effect<never, never, void>,
-    ask: (message: string) => T.Effect<never, NonInteractive, void>,
+    ask: (message: string) => T.Effect<never, NonInteractive, string>,
 }
 
 const IOService = Context.Tag<IOService>();
@@ -67,7 +67,7 @@ const IOServiceLive = L.effect(
         ConsoleService,
         T.map((consoleService) => {
             return IOService.of({
-                aks(message) {
+                ask(message) {
                     return T.tryCatchPromise(async () => {
                         const answer = await prompt(message)
 
@@ -90,7 +90,7 @@ interface GameService {
     next: () => T.Effect<never, never, RPSOption>;
 }
 
-const GameService = Context.tag<GameService>();
+const GameService = Context.Tag<GameService>();
 
 const GameServiceLive = L.succeed(
     GameService,
@@ -110,63 +110,65 @@ interface RPS {
 const RPS = Context.Tag<RPS>();
 
 const RPSLive = pipe(
-    RPS,
-    pipe(
-        T.all(GameService, IOService),
-        T.map(([GameService, IOService]) => {
-            type Result = Winner | "Tie"
+    L.effect(
+        RPS,
+        pipe(
+            T.all(GameService, IOService),
+            T.map(([GameService, IOService]) => {
+                type Result = Winner | "Tie"
 
-            const singleRun = pipe(
-                IOService.ask("Rock, paper, scissors!: "),
-                T.flatMap((player) => isRPS(player)
-                    ? T.succeed(player)
-                    : pipe(
-                        IOService.print("Invalid Option"),
-                        T.zipRight(T.fail(new InvalidOption))
-                    )
-                ),
-                T.bindTo("player"),
-                T.bind("cpu", () => GameService.next()),
-            )
+                const singleRun = pipe(
+                    IOService.ask("Rock, paper, scissors!: "),
+                    T.flatMap((player) => isRPS(player)
+                        ? T.succeed(player)
+                        : pipe(
+                            IOService.print("Invalid Option"),
+                            T.zipRight(T.fail(new InvalidOption))
+                        )
+                    ),
+                    T.bindTo("player"),
+                    T.bind("cpu", () => GameService.next()),
+                )
 
-            const decide = ({ cpu, player }: Record<"cpu" | "player", RPSOption>): Result => {
-                const decisionTree = {
-                    rock: {
-                        rock: "Tie",
-                        paper: "🤖 CPU wins!",
-                        scissors: "🧑 Player wins!",
-                    },
-                    paper: {
-                        rock: "🧑 Player wins!",
-                        paper: "Tie",
-                        scissors: "🤖 CPU wins!",
-                    },
-                    scissors: {
-                        rock: "🤖 CPU wins!",
-                        paper: "🧑 Player wins!",
-                        scissors: "Tie",
-                    },
-                } as const
+                const decide = ({ cpu, player }: Record<"cpu" | "player", RPSOption>): Result => {
+                    const decisionTree = {
+                        rock: {
+                            rock: "Tie",
+                            paper: "🤖 CPU wins!",
+                            scissors: "🧑 Player wins!",
+                        },
+                        paper: {
+                            rock: "🧑 Player wins!",
+                            paper: "Tie",
+                            scissors: "🤖 CPU wins!",
+                        },
+                        scissors: {
+                            rock: "🤖 CPU wins!",
+                            paper: "🧑 Player wins!",
+                            scissors: "Tie",
+                        },
+                    } as const
 
-                return decisionTree[player][cpu];
-            }
+                    return decisionTree[player][cpu];
+                }
 
-            const game = pipe(
-                singleRun,
-                T.retryWhile(error => error._tag === "InvalidOption"),
-                T.tap(({ cpu }) => IOService.print(`CPU picked ${cpu}`)),
-                T.map(decide),
-                T.tap(result => result === "Tie"
-                    ? IOService.print("Tie! run again")
-                    : T.unit()
-                ),
-                T.repeatWhileEquals("Tie"),
-                T.map(x => x as Winner)
-            )
+                const game = pipe(
+                    singleRun,
+                    T.retryWhile(error => error._tag === "InvalidOption"),
+                    T.tap(({ cpu }) => IOService.print(`CPU picked ${cpu}`)),
+                    T.map(decide),
+                    T.tap(result => result === "Tie"
+                        ? IOService.print("Tie! run again")
+                        : T.unit()
+                    ),
+                    T.repeatWhileEquals("Tie"),
+                    T.map(x => x as Winner)
+                )
 
-            return RPS.of({ game })
-        }),
-    ),
+                return RPS.of({ game })
+            }),
+        ),
+    )
 )
 
 const program = pipe(

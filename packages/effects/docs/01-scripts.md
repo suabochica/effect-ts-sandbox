@@ -1,5 +1,5 @@
 Scripts
--------
+=======
 
 You can run the next scripts stores in `package.json` file; for run the hello exercise execute:
 
