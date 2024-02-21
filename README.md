@@ -1,4 +1,5 @@
-# Effect-TS Sandbox
+Effect-TS Sandbox
+=================
 
 Storing Effect-TS learnings and projects
 
@@ -22,7 +23,8 @@ Effect-TS includes full port of ZIO, a functional programming library fo Scala t
 effect data type as its backbone and contains a huge set of useful data-types that are thought to be used in everyday
 application development.
 
-## References
+References
+----------
 
 - [Effect Website](https://www.effect.website)
 - [Effect Docs](https://www.effect.website/docs/why-effect)
