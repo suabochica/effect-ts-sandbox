@@ -4,8 +4,8 @@
   "description": "",
   "main": "index.js",
   "scripts": {
-    "start:pokemon": "npx nodemon src/index.ts",
-    "once:pokemon": "ts-node src/index.ts",
+    "once:pipe:pokemon": "ts-node src/index.pipe.ts",
+    "once:gen:pokemon": "ts-node src/index.gen.ts",
     "clean": "rimraf lib tsbuildinfo"
   },
   "keywords": [],
