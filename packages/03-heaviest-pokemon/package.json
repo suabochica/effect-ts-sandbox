@@ -5,6 +5,7 @@
   "main": "index.js",
   "scripts": {
     "once:pipe:pokemon": "ts-node src/index.pipe.ts",
+    "once:pipe:di:pokemon": "ts-node src/index.pipe.di.ts",
     "once:gen:pokemon": "ts-node src/index.gen.ts",
     "clean": "rimraf lib tsbuildinfo"
   },
