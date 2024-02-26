@@ -1,5 +1,5 @@
 import { Effect, pipe } from "effect";
-import { type Pokemon } from "./api/pokemon.schema";
+import { type Pokemon, SameWeightError } from "./api/pokemon.schema";
 
 // Utils
 // -----
@@ -17,6 +17,6 @@ export const formatPokemon = (pokemon: Pokemon) =>
 export const calculateHeaviestPokemon = (pokemons: Pokemon[]) =>
   Effect.reduce(pokemons, 0, (highest, pokemon) =>
     pokemon.weight === highest
-      ? Effect.fail(new Error("two pokemon have the same weight"))
+      ? Effect.fail(new SameWeightError(pokemon.weight))
       : Effect.succeed(pokemon.weight > highest ? pokemon.weight : highest)
   );

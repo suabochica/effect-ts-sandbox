@@ -1,5 +1,5 @@
 import { Effect, pipe } from "effect";
-import { parsePokemon } from "./pokemon.schema";
+import { parsePokemon, JSONError } from "./pokemon.schema";
 
 // Fetch
 // -----
@@ -9,12 +9,17 @@ import { parsePokemon } from "./pokemon.schema";
 export const getPokemonPipe = (id: number) =>
   pipe(
     Effect.tryPromise({
-      try: () =>
-        fetch(`https://pokeapi.co/api/v2/pokemon/${id}`)
-        .then((response) => response.json()),
+      try: () => fetch(`https://pokeapi.co/api/v2/pokemon/${id}`),
       catch: () => new Error(`Error fetching pokemon`)
     }),
-    Effect.flatMap((p) => parsePokemon(p))
+    Effect.flatMap((response) =>
+      Effect.tryPromise({
+        try: () => response.json(),
+        catch:() => new JSONError(),
+      })
+    ),
+    Effect.flatMap((p) => parsePokemon(p)),
+    Effect.catchAll(() => Effect.succeed({ name: "default", weight: 0 }))
   );
 
 // --- generators version

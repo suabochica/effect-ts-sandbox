@@ -10,3 +10,18 @@ const pokemonSchema = Schema.struct({
 
 export type Pokemon = Schema.To<typeof pokemonSchema>;
 export const parsePokemon = Schema.parse(pokemonSchema)
+
+// Errors
+// ------
+export class FetchError {
+  readonly _tag = "FetchError";
+}
+
+export class JSONError {
+  readonly _tag = "JSONError";
+}
+
+export class SameWeightError {
+  readonly _tag = "SameWeightError";
+  constructor(readonly weight: number) {}
+}

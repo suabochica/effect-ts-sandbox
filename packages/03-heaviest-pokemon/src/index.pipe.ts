@@ -14,6 +14,9 @@ const program = pipe(
     Effect.log("\n" + pokemons.map(formatPokemon).join("\n"))
   ),
   Effect.flatMap((pokemons) => calculateHeaviestPokemon(pokemons)),
+  Effect.catchTag("SameWeightError", (e) =>
+    Effect.log(`There are pokemons with the same weight: ${e.weight}`)
+  ),
   Effect.flatMap((heaviest) =>
     Effect.log(`The heaviest pokemon weighs ${heaviest} hectograms!`)
   )
