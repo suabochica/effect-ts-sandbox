@@ -1,0 +1,46 @@
+{
+  "compilerOptions": {
+    "moduleDetection": "force",
+    "composite": true,
+    "downlevelIteration": true,
+    "resolveJsonModule": true,
+    "esModuleInterop": true,
+    "skipLibCheck": true,
+    "emitDecoratorMetadata": true,
+    "experimentalDecorators": true,
+    "moduleResolution": "NodeNext",
+    "lib": ["ESNext", "DOM", "DOM.Iterable"],
+    "strict": true,
+    "noFallthroughCasesInSwitch": true,
+    "noErrorTruncation": true,
+    "allowJs": false,
+    "checkJs": false,
+    "forceConsistentCasingInFileNames": true,
+    "noImplicitAny": true,
+    "noImplicitThis": true,
+    "noUncheckedIndexedAccess": false,
+    "strictNullChecks": true,
+    "noEmit": false,
+    "baseUrl": ".",
+    "target": "ESNext",
+    "module": "NodeNext",
+    "incremental": true,
+    "paths": {
+      "hello/test/*": ["./packages/00-hello/test/*"],
+      "hello/*": ["./packages/00-hello/src/*"],
+      "hello/": ["./packages/00-hello/src/index"],
+
+      "effects/*": ["./packages/01-effects/src/*"],
+      "effects/": ["./packages/01-effects/src/index"],
+
+      "heaviest-pokemon/*": ["./packages/03-heaviest-pokemon/src/*"],
+      "heaviest-pokemon/": ["./packages/03-heaviest-pokemon/src/index.gen"],
+
+      "http-and-schema/test/*": ["./packages/04-http-and-schema/test/*"],
+      "http-and-schema/*": ["./packages/04-http-and-schema/src/*"],
+      "http-and-schema/": ["./packages/04-http-and-schema/src/index"],
+    },
+    "plugins": [{ "name": "@effect/language-service" }]
+  },
+  "exclude": ["node_modules", "build"]
+}

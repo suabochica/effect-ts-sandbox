@@ -1,7 +1,7 @@
 🗃️ systx-be
 ========
 
-A simple RESTful API build with [deno](https://deno.com).
+A simple RESTful API build on [deno](https://deno.com).
 
 ```sh
 deno run
@@ -121,6 +121,7 @@ This validate that vr was properly installed.
 ⚠️ TODO: Explain folders
 
 Below is a high level description of the folders relationship.
+
 ```txt
 main.ts <-- /routes
 main.ts <-- /services

@@ -1,0 +1,30 @@
+{
+  "name": "effect-ts-sandbox",
+  "version": "1.0.0",
+  "description": "Space to group effect learnings",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/suabochica/effect-ts-sandbox",
+    "keywords": [],
+    "author": "",
+    "license": "ISC",
+    "bugs": {
+      "url": "git+https://github.com/suabochica/effect-ts-sandbox/issues"
+    },
+    "homepage": "git+https://github.com/suabochica/effect-ts-sandbox#readme",
+    "devDependencies": {
+      "standard": "17.0.0"
+    },
+    "eslintConfig": {
+      "extends": "./node_modules/standard/eslintrc.json"
+    }
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC"
+}

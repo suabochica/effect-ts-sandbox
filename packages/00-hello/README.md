@@ -2,8 +2,7 @@
 
 > Testable code has some peculiar traits that are sometimes misunderstood. Functional programming is sold as a way of
 > writing testable code. This conception is wrong in principle because pure functional code can be just as hard to test
-> if
-> not designed with testability in mind.
+> if not designed with testability in mind.
 
 ## What do we mean by Testable Code?
 
@@ -18,15 +17,15 @@ There are some common traits of testable code:
 - Separation of pure and impure
 - Simplicity
 
-## What do we mean by Testable Code?
+## Checking Testable Code
 
 Functional programming, by default enforces some of the common traits of testable code, unfortunately not all of them.
 
 In fact, non properly designed functional code can still be very hard to tst, as hard as any others paradigm.
 
-## Hello World!
+## Hello World
 
-The first example that evey programmer has seen it is the function "helloWorld"
+The first example that every programmer has seen it is the function "helloWorld"
 
 ```ts
 export function helloWorld(name: string) {
@@ -148,7 +147,7 @@ Cool! as you can see we execute five steps to enable composition of the `helloWo
 
 At this point, when we run the `yarn run dev` command we get in the console
 
-```
+```txt
 Hello World: Jim
 ```
 
@@ -176,7 +175,7 @@ const program = T.gen(function* (_) {
 
 With both versions, after run `yarn run dev` we get:
 
-```
+```txt
 hello world: Pam
 hello world: Jim
 hello world: Dwight
@@ -200,7 +199,7 @@ pipe(
 
 When the `yarn run dev` command is ran, we get:
 
-```
+```txt
 hello world: Pam
 hello world: Jim
 hello world: Dwight
@@ -316,7 +315,7 @@ As you can see, we import the `App` an get the program and the services from the
 to
 exit from the promise. Now, whe we run the `yarn test` command we get the next report from jest:
 
-```
+```txt
 App
     ✓ should succeed for numbers less than 0.5 (7 ms)
 
