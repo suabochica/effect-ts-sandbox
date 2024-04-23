@@ -13,6 +13,7 @@ export const parsePokemon = Schema.parse(pokemonSchema)
 
 // Errors
 // ------
+
 export class FetchError {
   readonly _tag = "FetchError";
 }

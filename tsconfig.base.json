@@ -39,6 +39,9 @@
       "http-and-schema/test/*": ["./packages/04-http-and-schema/test/*"],
       "http-and-schema/*": ["./packages/04-http-and-schema/src/*"],
       "http-and-schema/": ["./packages/04-http-and-schema/src/index"],
+
+      "supervisor/*": ["./packages/05-supervisor/src/*"],
+      "supervisor/": ["./packages/05-supervisor/src/index"],
     },
     "plugins": [{ "name": "@effect/language-service" }]
   },
