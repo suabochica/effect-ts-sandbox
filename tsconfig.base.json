@@ -42,6 +42,9 @@
 
       "supervisor/*": ["./packages/05-supervisor/src/*"],
       "supervisor/": ["./packages/05-supervisor/src/index"],
+
+      "configuration/*": ["./packages/06-configuration/src/*"],
+      "configuration/": ["./packages/06-configuration/src/index"],
     },
     "plugins": [{ "name": "@effect/language-service" }]
   },

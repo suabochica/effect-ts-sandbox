@@ -212,6 +212,22 @@ importers:
         specifier: ^5.1.6
         version: 5.4.5
 
+  packages/06-configuration:
+    dependencies:
+      effect:
+        specifier: 3.0.2
+        version: 3.0.2
+    devDependencies:
+      '@total-typescript/ts-reset':
+        specifier: ^0.4.2
+        version: 0.4.2
+      ts-node:
+        specifier: ^10.9.1
+        version: 10.9.2(@types/node@20.12.7)(typescript@5.4.5)
+      typescript:
+        specifier: ^5.1.6
+        version: 5.4.5
+
 packages:
 
   /@aashutoshrathi/word-wrap@1.2.6:
