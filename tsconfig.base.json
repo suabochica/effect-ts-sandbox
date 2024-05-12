@@ -45,6 +45,9 @@
 
       "configuration/*": ["./packages/06-configuration/src/*"],
       "configuration/": ["./packages/06-configuration/src/index"],
+
+      "scheduling/*": ["./packages/07-scheduling/src/*"],
+      "scheduling/": ["./packages/07-scheduling/src/index"],
     },
     "plugins": [{ "name": "@effect/language-service" }]
   },

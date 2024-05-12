@@ -23,6 +23,15 @@ Effect-TS includes full port of ZIO, a functional programming library fo Scala t
 effect data type as its backbone and contains a huge set of useful data-types that are thought to be used in everyday
 application development.
 
+📦 pnpm Workspace
+-----------------
+
+pnpm has built-in suppor for monorepositories. You can create a workspace to unite multiple projects inside a single repository. A workspace must have a `pnpm-workspace.yalm` file in its root. Then run at root level:
+
+```sh
+pnpm install
+```
+
 References
 ----------
 
