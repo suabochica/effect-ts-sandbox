@@ -4,7 +4,9 @@
   "description": "",
   "main": "index.js",
   "scripts": {
-    "program": "ts-node src/index.ts",
+    "repeat": "ts-node src/repeat.ts",
+    "repeat-n": "ts-node src/repeatN.ts",
+    "repeat-or-else": "ts-node src/repeatOrElse.ts",
     "clean": "rimraf lib tsbuildinfo"
   },
   "keywords": [],

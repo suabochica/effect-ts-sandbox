@@ -1,6 +1,6 @@
 import { Effect, Schedule, Console } from "effect"
 
-const action = Console.log("success")
+const action = Console.log("success repeat")
 
 const policy = Schedule.addDelay(
   Schedule.recurs(2),
