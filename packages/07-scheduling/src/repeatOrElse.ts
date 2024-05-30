@@ -20,7 +20,7 @@ const policy = Schedule.addDelay(
 
 const program = Effect.repeatOrElse(action, policy, () =>
   Effect.sync(() => {
-    console.log("orElese")
+    console.log("orElse")
 
     return count -1
   })

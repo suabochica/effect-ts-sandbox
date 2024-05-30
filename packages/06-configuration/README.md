@@ -13,7 +13,7 @@ Effect comes bundled with a straightforward default ConfigProvider that retrieve
 Let's start with a simple example of how to read configuration from environment variables:
 
 ```sh
-pnpm run repeat
+pnpm run index
 ```
 
 The output its:
@@ -30,5 +30,4 @@ All these commands are executed from the root of the packages. i.e., `effect-ts-
 | Command                    | Action                                           |
 | :------------------------- | :----------------------------------------------- |
 | `pnpm install`             | Installs dependencies                            |
-| `pnpm run repeat`          | Starts the repeat program at console             |
-| `pnpm run repeatN`         | Starts the repeatN program at console            |
+| `pnpm run index`           | Starts a set up with a host and a port           |
