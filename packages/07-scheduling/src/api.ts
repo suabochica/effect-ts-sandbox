@@ -1,4 +1,4 @@
-import { NodeRuntime} from "@effect/platform-node"
+import { NodeRuntime } from "@effect/platform-node"
 import { Console, Effect } from "effect"
 
 const getJson = (url: string) =>
