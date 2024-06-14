@@ -1,5 +1,5 @@
-import { NodeRuntime } from "@effect/platform-node"
 import { Console, Effect } from "effect"
+import { NodeRuntime } from "@effect/platform-node"
 
 class Err extends Error {
   constructor(
