@@ -46,6 +46,8 @@ All these commands are executed from the root of the packages. i.e., `effect-ts-
 | Command                    | Action                                           |
 | :------------------------- | :----------------------------------------------- |
 | `pnpm install`             | Installs dependencies                            |
+| `pnpm run api`             | Starts the api program at console                |
+| `pnpm run api-retries`     | Starts the api program at console                |
 | `pnpm run repeat`          | Starts the repeat program at console             |
 | `pnpm run repeatN`         | Starts the repeatN program at console            |
 | `pnpm run repeatOrElse`    | Starts the repeatOrElse program at console       |
