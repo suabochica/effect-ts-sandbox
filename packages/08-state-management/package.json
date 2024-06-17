@@ -4,7 +4,8 @@
   "description": "",
   "main": "index.js",
   "scripts": {
-    "index": "ts-node src/index.ts",
+    "ref": "ts-node src/ref.ts",
+    "ref-concurrent": "ts-node src/refConcurrent.ts",
     "clean": "rimraf lib tsbuildinfo"
   },
   "keywords": [],

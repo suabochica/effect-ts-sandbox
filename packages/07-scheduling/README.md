@@ -41,7 +41,7 @@ repetitions: 2
 🧞 Commands
 -----------
 
-All these commands are executed from the root of the packages. i.e., `effect-ts-sandbox/packages/06-configuration`
+All these commands are executed from the root of the packages. i.e., `effect-ts-sandbox/packages/07-scheduling`
 
 | Command                    | Action                                           |
 | :------------------------- | :----------------------------------------------- |
