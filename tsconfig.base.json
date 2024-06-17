@@ -48,6 +48,9 @@
 
       "scheduling/*": ["./packages/07-scheduling/src/*"],
       "scheduling/": ["./packages/07-scheduling/src/index"],
+
+      "state-management/*": ["./packages/08-state-management/src/*"],
+      "state-management/": ["./packages/08-state-management/src/index"],
     },
     "plugins": [{ "name": "@effect/language-service" }]
   },

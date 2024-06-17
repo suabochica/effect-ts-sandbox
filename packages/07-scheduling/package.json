@@ -13,7 +13,7 @@
     "clean": "rimraf lib tsbuildinfo"
   },
   "keywords": [],
-  "author": "",
+  "author": "Sergio Benítez",
   "license": "ISC",
   "devDependencies": {
     "@effect/platform-node": "0.51.9",

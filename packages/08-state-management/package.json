@@ -1,0 +1,19 @@
+{
+  "name": "state-management",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "index": "ts-node src/index.ts",
+    "clean": "rimraf lib tsbuildinfo"
+  },
+  "keywords": [],
+  "author": "Sergio Benítez",
+  "license": "ISC",
+  "devDependencies": {
+    "effect": "3.3.1",
+    "rimraf": "3.0.2",
+    "ts-node": "10.9.2",
+    "typescript": "5.1.6"
+  }
+}
