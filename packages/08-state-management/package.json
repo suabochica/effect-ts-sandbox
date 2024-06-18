@@ -6,6 +6,7 @@
   "scripts": {
     "ref": "ts-node src/ref.ts",
     "ref-concurrent": "ts-node src/refConcurrent.ts",
+    "ref-service": "ts-node src/refService.ts",
     "clean": "rimraf lib tsbuildinfo"
   },
   "keywords": [],
