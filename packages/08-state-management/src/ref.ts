@@ -1,5 +1,5 @@
 import { Effect } from "effect"
-import * as Counter from "./Counter"
+import * as Counter from "./utils/Counter"
 
 const program = Effect.gen(function*() {
   const counter = yield* Counter.make

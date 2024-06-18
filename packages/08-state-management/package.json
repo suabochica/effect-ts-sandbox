@@ -7,12 +7,15 @@
     "ref": "ts-node src/ref.ts",
     "ref-concurrent": "ts-node src/refConcurrent.ts",
     "ref-service": "ts-node src/refService.ts",
+    "share-state": "ts-node src/shareState.ts",
+    "share-state-fibers": "ts-node src/shareStateFibers.ts",
     "clean": "rimraf lib tsbuildinfo"
   },
   "keywords": [],
   "author": "Sergio Benítez",
   "license": "ISC",
   "devDependencies": {
+    "@types/node": "17.0.13",
     "effect": "3.3.1",
     "rimraf": "3.0.2",
     "ts-node": "10.9.2",
