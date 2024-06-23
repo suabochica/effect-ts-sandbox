@@ -9,6 +9,11 @@ To overcome these issues, Effect introduces a powerful data type called `Ref`, w
 
 Effect `Ref` data type enables communication between different fibers in your program. This capability is crucial in concurrent programming, where multiple tasks may need to access and update shared state simultaneously.
 
+`SynchronizedRef<A>` serves as a mutable reference to a value of type `A`. With it, we can store immutable data and perform updates atomically and effectfully.
+
+The distinctive function in `SynchronizedRef` is `updateEffect`. This function takes an effectful operation and executes it to modify the shared state. This is the key feature setting `SynchronizedRef` apart from `Ref`.
+
+In real-world applications, there are scenarios where we need to execute an effect (e.g., querying a database) and then update the shared state accordingly. This is where `SynchronizedRef` shines, allowing us to update shared state in an actor-model fashion. We have a shared mutable state, but for each distinct command or message, we want to execute our effect and update the state.
 
 🧪 Example
 ----------
