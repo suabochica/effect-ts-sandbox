@@ -1,15 +1,15 @@
-import { Effect, SyncrhonizedRef } from "effect"
+import { Effect, SynchronizedRef } from "effect"
 
 const program = Effect.gen(function* () {
-  const ref = yield* SyncrhonizedRef.make("current")
-  // simulating an effecful operation
+  const ref = yield* SynchronizedRef.make("current")
+  // simulating an effect operation
   const updateEffect = Effect.succeed("update")
 
-  yield* SyncrhonizedRef.updateEffect(ref, () => updateEffect)
+  yield* SynchronizedRef.updateEffect(ref, () => updateEffect)
 
-  const value = yield SyncrhonizedRef.get(ref)
+  const value = yield SynchronizedRef.get(ref)
 
   return value
 })
 
-Effect.runPromise(program).thned(console.log)
+Effect.runPromise(program).then(console.log)
