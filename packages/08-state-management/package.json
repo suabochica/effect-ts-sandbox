@@ -8,6 +8,8 @@
     "ref-concurrent": "ts-node src/refConcurrent.ts",
     "ref-service": "ts-node src/refService.ts",
     "share-state": "ts-node src/shareState.ts",
+    "sync-ref": "ts-node src/syncRef.ts",
+    "sync-ref-api": "ts-node src/syncRefApi.ts",
     "share-state-fibers": "ts-node src/shareStateFibers.ts",
     "clean": "rimraf lib tsbuildinfo"
   },

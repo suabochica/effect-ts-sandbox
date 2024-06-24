@@ -1,7 +1,7 @@
 import { Effect, SynchronizedRef } from "effect"
 
 const getAge = (userId: number) =>
-  Effect.succeed({ userOd, age: userId * 10})
+  Effect.succeed({ userId, age: userId * 10})
 
 const users = [1, 2, 3, 4, 5]
 

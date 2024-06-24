@@ -7,7 +7,7 @@ const program = Effect.gen(function* () {
 
   yield* SynchronizedRef.updateEffect(ref, () => updateEffect)
 
-  const value = yield SynchronizedRef.get(ref)
+  const value = yield* SynchronizedRef.get(ref)
 
   return value
 })
