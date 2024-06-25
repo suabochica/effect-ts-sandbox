@@ -51,6 +51,9 @@
 
       "state-management/*": ["./packages/08-state-management/src/*"],
       "state-management/": ["./packages/08-state-management/src/index"],
+
+      "batching/*": ["./packages/09-batching/src/*"],
+      "batching/": ["./packages/09-batching/src/index"],
     },
     "plugins": [{ "name": "@effect/language-service" }]
   },
