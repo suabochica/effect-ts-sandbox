@@ -5,7 +5,7 @@ Batching is the act of grouping tasks together, so you do them all at once, inst
 
 Batching API calls can drastically improve the performance of your application by reducing the number of HTTP requests.
 
-Let's assume that getUserById and sendEmail can be batched. This means that we can send multiple requests in a single HTTP call, reducing the number of API requests and improving performance.
+Let's assume that `getUserById` and `sendEmail` can be batched. This means that we can send multiple requests in a single HTTP call, reducing the number of API requests and improving performance.
 
 🐾 Step-by-Step Guide to Batching
 ---------------------------------

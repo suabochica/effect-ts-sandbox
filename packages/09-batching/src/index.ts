@@ -1,9 +1,9 @@
 import { Effect } from "effect"
-import * as API from "./classicApi"
+import * as Queries from "./queries"
 
 const program = Effect.gen(function* () {
-  const todos = yield* API.getTodos
-  yield* Effect.forEach(todos, (todo) => API.notifyOwner(todo), {
-    concurrency: "unbounded"
+  const todos = yield* Queries.getTodos
+  yield* Effect.forEach(todos, (todo) => Queries.notifyOwner(todo), {
+    batching: true
   })
 })
