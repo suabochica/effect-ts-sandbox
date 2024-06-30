@@ -11,7 +11,7 @@ export const GetUserByIdResolver = RequestResolver.makeBatched(
   (requests: ReadonlyArray<Requests.GetUserById>) =>
     Effect.tryPromise({
       try: () =>
-        fetch("https://api.example.demo/getUserByIBatch", {
+        fetch("https://api.example.demo/getUserByIdBatch", {
           method: "POST",
           headers: {
             "Content-Type": "application/json"

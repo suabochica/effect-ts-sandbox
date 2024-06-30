@@ -12,7 +12,7 @@ export const getUserById = (id: number) =>
   Effect.request(
     Requests.GetUserById({ id }),
     Resolvers.GetUserByIdResolver
-  )
+  ).pipe(Effect.withRequestCaching(true))
 
 export const sendEmail = (address: string, text: string) =>
   Effect.request(

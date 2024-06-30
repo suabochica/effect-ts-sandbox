@@ -4,7 +4,7 @@
   "description": "",
   "main": "index.js",
   "scripts": {
-    "classic-api": "ts-node src/classicApi.ts",
+    "index": "ts-node src/index.ts",
     "clean": "rimraf lib tsbuildinfo"
   },
   "keywords": [],

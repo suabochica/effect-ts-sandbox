@@ -19,9 +19,11 @@ Let's assume that `getUserById` and `sendEmail` can be batched. This means that 
 
 It's crucial for the requests to be modeled in a way that allows them to be comparable. This means implementing comparability (using methods like Equals.equals) to identify and batch identical requests effectively.
 
-👀 Resolvers with Context
+🕹 Resolvers with Context
 -------------------------
 
 In complex applications, resolvers often need access to shared services or configurations to handle requests effectively. However, maintaining the ability to batch request while providing the necessary context can be challenging. Here, we will explore how to manage context in resolvers to ensure that batching capabilities are not compromised.
 
 When creating request resolvers, it is crucial to manage the context carefully. Providing too much context or providing varying services to resolvers can make them incompatible for batching. To prevent such issues, the context for the resolver used in `Effect.request` is explicitly set to `never`. This force developers to clearly define how the context is accessed and used within resolvers.
+
+> Resolvers can also access the context like any other Effect, and there are many different ways to create resolvers. For further details, consider exploring the reference documentation for the RequestResolver module. 
