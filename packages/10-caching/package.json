@@ -4,7 +4,9 @@
   "description": "",
   "main": "index.js",
   "scripts": {
-    "cached": "ts-node src/index.ts",
+    "index": "ts-node src/index.ts",
+    "once": "ts-node src/once.ts",
+    "cached": "ts-node src/cached.ts",
     "clean": "rimraf lib tsbuildinfo"
   },
   "keywords": [],
