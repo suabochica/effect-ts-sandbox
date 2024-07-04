@@ -54,6 +54,9 @@
 
       "batching/*": ["./packages/09-batching/src/*"],
       "batching/": ["./packages/09-batching/src/index"],
+
+      "caching/*": ["./packages/10-caching/src/*"],
+      "caching/": ["./packages/10-caching/src/index"],
     },
     "plugins": [{ "name": "@effect/language-service" }]
   },
