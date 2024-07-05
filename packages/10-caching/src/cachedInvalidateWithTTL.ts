@@ -12,18 +12,12 @@ export const expensiveTask = Effect.promise<string>(() => {
   })
 })
 
-
 const program = Effect.gen(function* () {
-  console.log("non-cached version:")
-
-  yield* expensiveTask.pipe(Effect.andThen(Console.log))
-  yield* expensiveTask.pipe(Effect.andThen(Console.log))
-
-  console.log("cached version:")
-
-  const cached = yield* Effect.cached(expensiveTask)
+  const [cached, invalidate] = yield* Effect.cachedInvalidateWithTTL(expensiveTask, "1 hour")
 
   yield* cached.pipe(Effect.andThen(Console.log))
+  yield* cached.pipe(Effect.andThen(Console.log))
+  yield* invalidate
   yield* cached.pipe(Effect.andThen(Console.log))
 })
 

@@ -7,6 +7,8 @@
     "index": "ts-node src/index.ts",
     "once": "ts-node src/once.ts",
     "cached": "ts-node src/cached.ts",
+    "cached-with-ttl": "ts-node src/cachedWithTTL.ts",
+    "cached-invalidate-with-ttl": "ts-node src/cachedInvalidateWithTTL.ts",
     "clean": "rimraf lib tsbuildinfo"
   },
   "keywords": [],

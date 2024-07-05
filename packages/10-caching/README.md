@@ -42,3 +42,5 @@ All these commands are executed from the root of the packages. i.e., `effect-ts-
 | `pnpm run index`             | Starts the cached example program at console                |
 | `pnpm run once`  | Starts the once program at console     |
 | `pnpm run cached`  | Starts the cached program at console     |
+| `pnpm run cached-with-ttl`  | Starts the `cachedWithTTL` program at console     |
+| `pnpm run cached-invalidate-with-ttl`  | Starts the `cachedInvalidateWithTTL` program at console     |
