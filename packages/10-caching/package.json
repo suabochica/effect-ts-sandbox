@@ -6,9 +6,10 @@
   "scripts": {
     "index": "ts-node src/index.ts",
     "once": "ts-node src/once.ts",
+    "cache-module": "ts-node src/cacheModule.ts",
     "cached": "ts-node src/cached.ts",
-    "cached-with-ttl": "ts-node src/cachedWithTTL.ts",
     "cached-invalidate-with-ttl": "ts-node src/cachedInvalidateWithTTL.ts",
+    "cached-with-ttl": "ts-node src/cachedWithTTL.ts",
     "clean": "rimraf lib tsbuildinfo"
   },
   "keywords": [],
