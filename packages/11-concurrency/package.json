@@ -5,6 +5,7 @@
   "main": "index.js",
   "scripts": {
     "index": "ts-node src/index",
+    "joining-fibers": "ts-node src/joiningFibers",
     "clean": "rimraf lib tsbuildinfo"
   },
   "keywords": [],

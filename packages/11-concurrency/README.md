@@ -20,3 +20,15 @@ The `Fiber<A, E>` data type has two type parameters:
 - **E (Failure Type)**: The type of value the fiber may fail with.
 
 Fibers do not have an `R` type parameter because they only execute effects that have already had their requirements provided to them.
+
+
+🧞 Commands
+-----------
+
+All these commands are executed from the root of the packages. i.e., `effect-ts-sandbox/packages/11-concurrency`
+
+| Command                    | Action                                           |
+| :------------------------- | :----------------------------------------------- |
+| `pnpm install`             | Installs dependencies                            |
+| `pnpm run index`             | Starts a fiber with fibonacci               |
+| `pnpm run joining-fibers`  | Starts the joining fiber program     |
