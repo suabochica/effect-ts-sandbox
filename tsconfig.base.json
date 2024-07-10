@@ -57,6 +57,9 @@
 
       "caching/*": ["./packages/10-caching/src/*"],
       "caching/": ["./packages/10-caching/src/index"],
+
+      "concurrency/*": ["./packages/11-concurrency/src/*"],
+      "concurrency/": ["./packages/11-concurrency/src/index"],
     },
     "plugins": [{ "name": "@effect/language-service" }]
   },
