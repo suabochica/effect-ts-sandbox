@@ -1,6 +1,6 @@
 import { Effect } from "effect"
 
-const fib = (n: number): Effect.Effect<number> =>
+export const fib = (n: number): Effect.Effect<number> =>
   Effect.suspend(() => {
     if (n <= 1) {
       return Effect.succeed(n)
@@ -14,4 +14,4 @@ const fib = (n: number): Effect.Effect<number> =>
     )
   })
 
-const fib10Fiber = Effect.runFork(fib(10))
+const fib10Fiber = Effect.fork(fib(10))

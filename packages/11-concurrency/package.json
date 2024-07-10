@@ -6,6 +6,9 @@
   "scripts": {
     "index": "ts-node src/index",
     "joining-fibers": "ts-node src/joiningFibers",
+    "awaiting-fibers": "ts-node src/awaitingFibers",
+    "interrupting-fibers": "ts-node src/interruptingFibers",
+    "composing-fibers": "ts-node src/composingFibers",
     "clean": "rimraf lib tsbuildinfo"
   },
   "keywords": [],
