@@ -9,6 +9,7 @@
     "awaiting-fibers": "ts-node src/awaitingFibers",
     "interrupting-fibers": "ts-node src/interruptingFibers",
     "composing-fibers": "ts-node src/composingFibers",
+    "sequential-execution": "ts-node src/sequentialExecution",
     "clean": "rimraf lib tsbuildinfo"
   },
   "keywords": [],
