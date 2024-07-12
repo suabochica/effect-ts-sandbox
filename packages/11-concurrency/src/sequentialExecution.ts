@@ -1,16 +1,6 @@
-import { Effect, Duration } from "effect"
+import { Effect } from "effect"
+import { makeTask } from "./index"
 
-const makeTask = (n: number, delay: Duration.DurationInput) =>
-  Effect.promise(
-    () => 
-      new Promise<void> ((resolve) => {
-        console.log(`start task ${n}`)
-        setTimeout(() => {
-          console.log(`task ${n} done`)
-          resolve()
-        }, Duration.toMillis(delay))
-      })
-  )
 
 const task1 = makeTask(1, "200 millis")
 const task2 = makeTask(2, "100 millis")

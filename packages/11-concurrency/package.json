@@ -10,6 +10,7 @@
     "interrupting-fibers": "ts-node src/interruptingFibers",
     "composing-fibers": "ts-node src/composingFibers",
     "sequential-execution": "ts-node src/sequentialExecution",
+    "numbered-concurrency": "ts-node src/numberedConcurrency",
     "clean": "rimraf lib tsbuildinfo"
   },
   "keywords": [],
