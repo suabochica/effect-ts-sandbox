@@ -11,6 +11,11 @@
     "composing-fibers": "ts-node src/composingFibers",
     "sequential-execution": "ts-node src/sequentialExecution",
     "numbered-concurrency": "ts-node src/numberedConcurrency",
+    "unbounded-concurrency": "ts-node src/unboundedConcurrency",
+    "inherit-concurrency": "ts-node src/inheritConcurrency",
+    "daemon-fiber": "ts-node src/daemonFiber",
+    "fork-in-local": "ts-node src/forkInLocal",
+    "fork-in-specific": "ts-node src/forkInSpecific",
     "clean": "rimraf lib tsbuildinfo"
   },
   "keywords": [],
