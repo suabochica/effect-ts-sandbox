@@ -45,6 +45,27 @@ When we work with fibers, depending on how we fork them whe can have 4 different
 3. **Fork in local scope**. Sometimes, we want to run a background fiber that isn't tied to its parent fiber, but we want to live that fiber in the local scope. We can fork fibers in the local scope by using `Effect.forkScoped`. Such fibers can outlive their parent fiber (so they are not supervised by their parents), and they will be terminated when their life end or their local scope is closed.
 4. **Fork in specific scope**. This is similar to the previous strategy, but we can have more fine-grained control over the lifetime of the child fiber by forking it in a specific scope. We can do this by using the `Effect.forkIn` operator.
 
+Handling Fiber Interruption
+---------------------------
+
+While developing concurrent applications, there are several cases that we need to _interrupt_ the execution of the other fibers, for example:
+
+1. A parent fiber might start some child fibers to perform a task, and later the parent might decide that, it doesn't need the result of some or all of the child fibers.
+2. Two or more fibers start race with each other. The fiber whose result is computed first wins, and all other fibers are no longer needed, and should be interrupted.
+3. In interactive applications, a use may want to stop some already running tasks, such as clicking on the "stop" button to prevent downloading more files.
+4. Computations that run longer that expected should be aborted by using timeout operations.
+5. When we have an application that perform compute-intensive task based on the user inputs, if the user changes the input we should cancel the current task and perform one.
+
+Polling vs. Asynchronous Interruption
+-------------------------------------
+
+When it comes to interrupting fibers, a naive approach is to allow one fiber to forcefully terminate another fiber. However, this approach is not ideal because it can leave shared state in an inconsistent and unreliable state if the target fiber is in the middle of modifying that state. Therefore, it does not guarantee internal consistency of the shared mutable state.
+
+Instead, there are two popular and valid solutions to tackle this problem:
+
+1. **Polling for interruption**: Imperative languages often employ polling as a semi-asynchronous signaling mechanism. In this model, a fiber sends an interruption request to another fiber. The target fiber continuously polls the interrupt status and checks whether it has received any interruption requires from other fibers. If an interruption request is detected, the target fiber terminates itself as soon as possible.
+2. **Asynchronous interruption**: In asynchronous interruption, a fiber is allowed to terminate another fiber. The target fiber is not responsible for polling the interrupt status. Instead, during critical section, the target fiber disables the interruptibility of those regions. This is a purely functional solution that does not require polling a global state. Effect adopts this solution for its interruption model, which is a fully asynchronous signaling mechanism. This mechanism overcomes the drawback of forgetting to poll regularly. It is also fully compatible with the functional paradigm because we can abort the computation at any point, except during critical sections where interruption is disabled.
+
 
 🧞 Commands
 -----------
@@ -63,4 +84,5 @@ All these commands are executed from the root of the packages. i.e., `effect-ts-
 | `pnpm run numbered-concurrency`  | Starts the numbered concurrency program     |
 | `pnpm run unbounded-concurrency`  | Starts the unbounded concurrency program     |
 | `pnpm run inhering-concurrency`  | Starts the inhering concurrency program     |
-
+| `pnpm run interrupting-effect`  | Starts the interrupting effect program     |
+| `pnpm run interrupting-effects`  | Starts the interrupting effects program     |

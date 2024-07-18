@@ -8,6 +8,8 @@
     "joining-fibers": "ts-node src/joiningFibers",
     "awaiting-fibers": "ts-node src/awaitingFibers",
     "interrupting-fibers": "ts-node src/interruptingFibers",
+    "interrupting-effect": "ts-node src/interruptingEffect",
+    "interrupting-effects": "ts-node src/interruptingEffects",
     "composing-fibers": "ts-node src/composingFibers",
     "sequential-execution": "ts-node src/sequentialExecution",
     "numbered-concurrency": "ts-node src/numberedConcurrency",
