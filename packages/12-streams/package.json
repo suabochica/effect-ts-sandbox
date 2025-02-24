@@ -1,20 +1,20 @@
 {
-  "name": "batching",
+  "name": "streams",
   "version": "1.0.0",
   "description": "",
   "main": "index.js",
   "scripts": {
-    "index": "ts-node src/index.ts",
+    "index": "tsx src/index.ts",
+    "cached": "tsx src/cached.ts",
     "clean": "rimraf lib tsbuildinfo"
   },
   "keywords": [],
   "author": "Sergio Benítez",
   "license": "ISC",
   "devDependencies": {
-    "@types/node": "17.0.13",
-    "effect": "3.3.1",
+    "effect": "3.13.2",
     "rimraf": "6.0.1",
-    "ts-node": "10.9.2",
-    "typescript": "5.1.6"
+    "tsx": "4.19.3",
+    "typescript": "5.7.3"
   }
 }

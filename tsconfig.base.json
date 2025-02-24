@@ -60,6 +60,9 @@
 
       "concurrency/*": ["./packages/11-concurrency/src/*"],
       "concurrency/": ["./packages/11-concurrency/src/index"],
+
+      "streams/*": ["./packages/12-streams/src/*"],
+      "streams/": ["./packages/12-streams/src/index"],
     },
     "plugins": [{ "name": "@effect/language-service" }]
   },
