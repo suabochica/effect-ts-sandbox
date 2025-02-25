@@ -4,8 +4,13 @@
   "description": "",
   "main": "index.js",
   "scripts": {
-    "index": "tsx src/index.ts",
-    "cached": "tsx src/cached.ts",
+    "make": "tsx src/00-make.ts",
+    "empty": "tsx src/01-empty.ts",
+    "void": "tsx src/02-void.ts",
+    "range": "tsx src/03-range.ts",
+    "iterate": "tsx src/04-iterate.ts",
+    "scoped": "tsx src/05-scoped.ts",
+    "fromSuccessFailure": "tsx src/06-fromSuccessFailure.ts",
     "clean": "rimraf lib tsbuildinfo"
   },
   "keywords": [],
