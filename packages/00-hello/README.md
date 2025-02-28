@@ -68,7 +68,7 @@ interface ConsoleService {
 // 1. make helloWorld a function
 export function helloWorld(name: string) {
   // 3.make the dependency on console explicit
-  return ({Console}: ConsoleService) => {
+  return ({ Console }: ConsoleService) => {
     Console.log(`hello world: ${name}`)
   }
 }
@@ -101,8 +101,8 @@ the next code snippet:
 ```ts
 // 1. Import the effect type
 import * as T from "@effect-ts/core/Effect"
-import {pipe} from "@effect-ts/core/Function"
-import {tag} from "@effect-ts/core/Has"
+import { pipe } from "@effect-ts/core/Function"
+import { tag } from "@effect-ts/core/Has"
 
 interface ConsoleService {
   // 2. Declare the console service effect
@@ -226,8 +226,7 @@ const rand = T.accessServiceM(RandomService)((_) => _.rand)
 class BadRandomValue {
   readonly _tag = "BadRandomValue"
 
-  constructor(readonly n: number) {
-  }
+  constructor(readonly n: number) {}
 }
 
 const program = T.gen(function* (_) {
@@ -248,7 +247,7 @@ the `BadRandomValue` class to handle the fail. If we check the pipe function, we
 because now the program is expecting for a `RandomService`.
 
 ```ts
-import * as S from "@effect-ts/core/Effect/Schedule";
+import * as S from "@effect-ts/core/Effect/Schedule"
 
 // ...
 
@@ -280,10 +279,9 @@ print the received value with the console service:
 ```ts
 import * as T from "@effect-ts/core/Effect"
 import * as Exit from "@effect-ts/core/Effect/Exit"
-import {pipe} from "@effect-ts/core/Function"
+import { pipe } from "@effect-ts/core/Function"
 
-import * as App from "@app/main";
-
+import * as App from "@app/main"
 
 describe("App", () => {
   it("should succeed for numbers less than 0.5", async () => {
@@ -333,14 +331,16 @@ import * as L from "@effect-ts/core/Effect/Layer"
 describe("App", () => {
   it("should succeed for numbers less than 0.5", async () => {
     const messages: string[] = []
-    const TestConsole = L.fromEffect(App.ConsoleService)(T.succeed({
+    const TestConsole = L.fromEffect(App.ConsoleService)(
+      T.succeed({
         log: (message) =>
           T.effectTotal(() => {
             messages.push(message)
           })
       })
     )
-    const TestRandom = L.fromEffect(App.RandomService)(T.succeed({
+    const TestRandom = L.fromEffect(App.RandomService)(
+      T.succeed({
         rand: T.effectTotal(() => {
           return 0.49
         })
