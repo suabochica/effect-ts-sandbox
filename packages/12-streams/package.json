@@ -16,13 +16,20 @@
     "consumers:runForEach": "tsx src/consumers/01-runForEach.ts",
     "consumers:fold": "tsx src/consumers/02-fold.ts",
     "consumers:sink": "tsx src/consumers/03-sink.ts",
+    "errors:fromFailure": "tsx src/errors/00-fromFailure.ts",
+    "errors:fromDefect": "tsx src/errors/01-fromDefect.ts",
+    "errors:fromSomeError": "tsx src/errors/02-fromSomeError.ts",
+    "errors:fromEffect": "tsx src/errors/03-fromEffect.ts",
+    "errors:retryFailingStream": "tsx src/errors/04-retryFailingStream.ts",
     "clean": "rimraf lib tsbuildinfo"
   },
   "keywords": [],
   "author": "Sergio Benítez",
   "license": "ISC",
   "devDependencies": {
+    "@types/node": "22.13.8",
     "effect": "3.13.2",
+    "node": "23.9.0",
     "rimraf": "6.0.1",
     "tsx": "4.19.3",
     "typescript": "5.7.3"
