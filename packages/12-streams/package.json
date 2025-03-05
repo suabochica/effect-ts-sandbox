@@ -21,6 +21,8 @@
     "errors:fromSomeError": "tsx src/errors/02-fromSomeError.ts",
     "errors:fromEffect": "tsx src/errors/03-fromEffect.ts",
     "errors:retryFailingStream": "tsx src/errors/04-retryFailingStream.ts",
+    "operations:tapping": "tsx src/operations/00-tapping.ts",
+    "operations:taking": "tsx src/operations/01-taking.ts",
     "clean": "rimraf lib tsbuildinfo"
   },
   "keywords": [],
