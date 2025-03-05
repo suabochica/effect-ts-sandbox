@@ -23,6 +23,13 @@
     "errors:retryFailingStream": "tsx src/errors/04-retryFailingStream.ts",
     "operations:tapping": "tsx src/operations/00-tapping.ts",
     "operations:taking": "tsx src/operations/01-taking.ts",
+    "operations:mapping": "tsx src/operations/02-mapping.ts",
+    "operations:statefulMapping": "tsx src/operations/03-stateful-mapping.ts",
+    "operations:mapAndFlat": "tsx src/operations/04-map-and-flat.ts",
+    "operations:filtering": "tsx src/operations/05-filtering.ts",
+    "operations:scanning": "tsx src/operations/06-scanning.ts",
+    "operations:draining": "tsx src/operations/07-draining.ts",
+    "operations:zipping": "tsx src/operations/08-zipping.ts",
     "clean": "rimraf lib tsbuildinfo"
   },
   "keywords": [],
