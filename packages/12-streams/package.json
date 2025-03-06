@@ -30,6 +30,10 @@
     "operations:scanning": "tsx src/operations/06-scanning.ts",
     "operations:draining": "tsx src/operations/07-draining.ts",
     "operations:zipping": "tsx src/operations/08-zipping.ts",
+    "operations:cross": "tsx src/operations/09-cross.ts",
+    "operations:partition": "tsx src/operations/10-partition.ts",
+    "operations:grouping": "tsx src/operations/11-grouping.ts",
+    "operations:concatenation": "tsx src/operations/12-concatenation.ts",
     "clean": "rimraf lib tsbuildinfo"
   },
   "keywords": [],
