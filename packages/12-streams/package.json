@@ -34,6 +34,9 @@
     "operations:partition": "tsx src/operations/10-partition.ts",
     "operations:grouping": "tsx src/operations/11-grouping.ts",
     "operations:concatenation": "tsx src/operations/12-concatenation.ts",
+    "operations:merge": "tsx src/operations/13-merging.ts",
+    "operations:interleave": "tsx src/operations/14-interleaving.ts",
+    "operations:intersperse": "tsx src/operations/15-interspersing.ts",
     "clean": "rimraf lib tsbuildinfo"
   },
   "keywords": [],
