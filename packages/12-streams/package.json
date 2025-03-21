@@ -37,6 +37,7 @@
     "operations:merge": "tsx src/operations/13-merging.ts",
     "operations:interleave": "tsx src/operations/14-interleaving.ts",
     "operations:intersperse": "tsx src/operations/15-interspersing.ts",
+    "operations:broadcasting": "tsx src/operations/16-broadcasting.ts",
     "clean": "rimraf lib tsbuildinfo"
   },
   "keywords": [],

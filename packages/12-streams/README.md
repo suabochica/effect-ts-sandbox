@@ -17,8 +17,13 @@ In summary, a `Stream` is a versatile tool for representing programs that may yi
 
 All these commands are executed from the root of the packages. i.e., `effect-ts-sandbox/packages/12-streams`
 
-| Command          | Action                                              |
-| :--------------- | :-------------------------------------------------- |
-| `pnpm install`   | Installs dependencies                               |
-| `pnpm run make`  | Create a pure stream using `Stream.make`            |
-| `pnpm run empty` | Constructor for stream that does not produce values |
+| Command                                    | Action                                                                                             |
+| :----------------------------------------- | :------------------------------------------------------------------------------------------------- |
+| `pnpm install`                             | Installs dependencies                                                                              |
+| `pnpm run constructors:make`               | Create an stream                                                                                   |
+| `pnpm run constructors:empty`              | Create an stream with empty values                                                                 |
+| `pnpm run constructors:void`               | Create a stream with `void` value. It's handy to represent a stream with a single event or signal. |
+| `pnpm run constructors:range`              | Create a stream of integers within a specified range `[min, max]`                                  |
+| `pnpm run constructors:iterate`            | Generate a stream by applying a function iteratively to an initial value                           |
+| `pnpm run constructors:scoped`             | Create a single-valued stream from a scoped resource                                               |
+| `pnpm run constructors:fromSuccessFailure` | Much like the Effect data type, you can generate a Stream using the fail and succeed functions:    |
